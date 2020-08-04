@@ -1,42 +1,19 @@
 /**
  * Get curated list of video durations
  */
-const durations = [
-  '3:15',
-  '3:56',
-  '6:31',
-  '7:19',
-  '4:57',
-  '12:32',
-  '7:42',
-  '4:47',
-  '6:03',
-  '12:19',
-  '3:31',
-  '4:29',
-  '6:41',
-  '7:10',
-  '7:31',
-  '4:13',
-  '4:41',
-  '6:46',
-  '8:00',
-  '↵      5:34↵    ',
-  '↵      4:40↵    ',
-  '↵      5:07↵    ',
-  '↵      10:32↵    ',
-  '↵      4:06↵    ',
-  '↵      7:31↵    ',
-  '↵      3:49↵    ',
-].map((time) => {
-  const regex = /\d+:\d{2}/g;
-  return time.match(regex).toString();
-});
+const videoLengths = [
+  ...document.querySelectorAll('ytd-thumbnail-overlay-time-status-renderer span'),
+]
+  .map((span) => span.innerText)
+  .map((time) => {
+    const regex = /\d+:\d{2}/g;
+    return time.match(regex).toString();
+  });
 
 /**
  * Get a list with all de videos' lengths in seconds
  */
-const timeSeconds = durations.map((time) => {
+const timeSeconds = videoLengths.map((time) => {
   const mins = +time.split(':')[0];
   const secs = +time.split(':')[1];
   return mins * 60 + secs;
@@ -64,4 +41,5 @@ if (totalMinutes >= 60) {
 }
 
 // Log the formatted total time in the console
+console.log('⏬ This is the total duration of the playlist ⏬');
 console.log(`${totalHours ? `${totalHours}:` : ''}${totalMinutes}:${remainingSecs}`);
