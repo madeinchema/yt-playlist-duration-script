@@ -1,7 +1,6 @@
 /**
  * Get curated list of video durations
  */
-
 const durations = [
   '3:15',
   '3:56',
@@ -35,19 +34,34 @@ const durations = [
 });
 
 /**
- * Get total time
+ * Get a list with all de videos' lengths in seconds
  */
-
 const timeSeconds = durations.map((time) => {
   const mins = +time.split(':')[0];
   const secs = +time.split(':')[1];
   return mins * 60 + secs;
 });
 
+/**
+ * Get and format the total time
+ */
+// Add up all the videos' lengths
 const totalSeconds = timeSeconds.reduce((totalTime, nextValue) => totalTime + nextValue);
-const remainingSecs = totalSeconds % 60;
-let actualMinutes = Math.floor(totalSeconds / 60);
-const actualHours = Math.floor(actualMinutes / 60);
-actualMinutes %= actualHours * 60;
 
-console.log(`${actualHours}:${actualMinutes}:${remainingSecs}`);
+// Get the remaining seconds
+const remainingSecs = totalSeconds % 60;
+
+// Get the total minutes
+let totalMinutes = Math.floor(totalSeconds / 60);
+
+// If totalLength > 1h:
+let totalHours;
+if (totalMinutes >= 60) {
+  // Get the total hours
+  totalHours = Math.floor(totalMinutes / 60);
+  // Update actualMinutes to reflect the remaining minutes after subtracting the hours
+  totalMinutes %= totalHours * 60;
+}
+
+// Log the formatted total time in the console
+console.log(`${totalHours ? `${totalHours}:` : ''}${totalMinutes}:${remainingSecs}`);
