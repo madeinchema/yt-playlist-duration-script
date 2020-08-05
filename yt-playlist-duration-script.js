@@ -1,25 +1,29 @@
 /**
- * Get curated list of video durations
+ * Create an array of videoLengths
+ * We use regex to make sure
  */
 const videoLengths = [
   ...document.querySelectorAll('ytd-thumbnail-overlay-time-status-renderer span'),
-]
-  .map((span) => span.innerText)
-  .map((time) => {
-    const regex = /\d+:\d{2}/g;
-    return time.match(regex).toString();
-  });
+].map((time) => time.innerText.replace(/↵/g, '').trim().toString());
 
 /**
  * Get the total amount of seconds
  */
 const totalSeconds = videoLengths
-  .map((time) => {
-    const mins = +time.split(':')[0];
-    const secs = +time.split(':')[1];
-    return mins * 60 + secs;
-  })
-  .reduce((prevTime, currentTime) => prevTime + currentTime, 0);
+  // Calculate the length of every video in seconds
+  .reduce((previousValue, currentValue) => {
+    const time = currentValue.split(':').map(parseFloat);
+    let seconds = 0;
+    if (time.length === 3) {
+      seconds += time[0] * 3600;
+      seconds += time[1] * 60;
+      seconds += time[2];
+    } else {
+      seconds += time[0] * 60;
+      seconds += time[1];
+    }
+    return previousValue + seconds;
+  }, 0);
 
 /**
  * Get and format the total time
