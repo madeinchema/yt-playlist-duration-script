@@ -7,23 +7,19 @@ const videoLengths = [
 ].map((time) => time.innerText.replace(/↵/g, '').trim().toString());
 
 /**
- * Get the total amount of seconds
+ * Get the total amount of seconds of all videos combined
  */
-const totalSeconds = videoLengths
-  // Calculate the length of every video in seconds
-  .reduce((previousValue, currentValue) => {
-    const time = currentValue.split(':').map(parseFloat);
-    let seconds = 0;
-    if (time.length === 3) {
-      seconds += time[0] * 3600;
-      seconds += time[1] * 60;
-      seconds += time[2];
-    } else {
-      seconds += time[0] * 60;
-      seconds += time[1];
-    }
-    return previousValue + seconds;
-  }, 0);
+const totalSeconds = videoLengths.reduce((accumulator, videoLength) => {
+  // Creates an array which will include hours or not depending on the videoLength passed
+  const time = videoLength.split(':').map(parseFloat);
+  let seconds = 0;
+
+  // Calculates and returns totalSeconds of videoLength depending on the presence of hours in it
+  seconds += time.length === 3 ? time[0] * 3600 : time[0] * 60;
+  seconds += time.length === 3 ? time[1] * 60 : time[1];
+  seconds += time.length === 3 ? time[2] : 0;
+  return accumulator + seconds;
+}, 0);
 
 /**
  * Get and format the total time
