@@ -2,7 +2,7 @@
   "name": "yt-playlist-duration-script",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "yt-playlist-duration-script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "browser-sync start --server --no-notify --files *.html, *.css, *.js"
