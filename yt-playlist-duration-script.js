@@ -24,7 +24,7 @@ const totalSeconds = videoLengths.reduce((accumulator, videoLength) => {
 /**
  * Get and format the total time
  */
-const secondsLeft = totalSeconds % 60;
+let secondsLeft = totalSeconds % 60;
 let minutesLeft = Math.floor(totalSeconds / 60);
 let totalHours = 0;
 
@@ -33,6 +33,11 @@ if (totalSeconds > 3600) {
   totalHours = Math.floor(totalSeconds / 3600);
   minutesLeft = Math.floor(totalSeconds / 60 - totalHours * 60);
 }
+
+// If seconds < 10, apply the format "SS" by passing a zero
+secondsLeft = secondsLeft < 10 ? `0${secondsLeft}` : secondsLeft;
+// If minutes < 60, apply the format "MM" by passing a zero
+minutesLeft = minutesLeft < 10 ? `0${minutesLeft}` : minutesLeft;
 
 // Log the formatted total time in the console
 console.log('⏬ This is the total duration of the playlist ⏬');
