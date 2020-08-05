@@ -23,18 +23,15 @@ const totalSeconds = videoLengths.reduce((accumulator, videoLength) => {
 
 /**
  * Get and format the total time
- * Get the remaining seconds:
  */
 const secondsLeft = totalSeconds % 60;
-
-// Get the total minutes
 let minutesLeft = Math.floor(totalSeconds / 60);
+let totalHours = 0;
 
-// Get the total hours. If there are any, update the minutesLeft by subtracting the hours
-let totalHours;
-if (minutesLeft >= 60) {
-  totalHours = Math.floor(minutesLeft / 60);
-  minutesLeft %= totalHours * 60;
+// If total length > 1hr, calculate hours and update minutesLeft
+if (totalSeconds > 3600) {
+  totalHours = Math.floor(totalSeconds / 3600);
+  minutesLeft = Math.floor(totalSeconds / 60 - totalHours * 60);
 }
 
 // Log the formatted total time in the console
