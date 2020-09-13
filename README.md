@@ -1,7 +1,18 @@
-![YT Playlist Duration Script Logo](https://i.imgur.com/Aer9cqz.png)
-# YT Playlist Duration Script
+<h1 align="center">Get the total duration of a Youtube Playlist</h1>
+  
+If you ever have the need to know the total length of a playlist, you can do so in just a moment thanks to this script.
 
-If you ever have the need to know the total length of a playlist, you can do so in a moment thanks to this script.
+
+<h3 align="center">     
+  <img  
+    src="https://i.imgur.com/Aer9cqz.png"  
+    alt="YT Playlist Duration Script Logo" width="350px" />  
+</h3>  
+
+<h4 align="center">
+ES6 | UserScript | Prettier
+</h4>
+
 
 ## How it works
 
